@@ -25,9 +25,16 @@ const movieDB = {
 };
 
 const promoAdv = document.querySelectorAll('.promo__adv img'),
-      promoBG = document.querySelector('.promo__bg'),
-      promoGenre = promoBG.querySelector('.promo__genre'),
-      promoItem = document.querySelector('.promo__interactive-list');
+    promoBG = document.querySelector('.promo__bg'),
+    promoGenre = promoBG.querySelector('.promo__genre'),
+    promoItem = document.querySelector('.promo__interactive-list'),
+    addingInput = document.querySelector('.adding__input'),
+    formAdd = document.querySelector('.add'),
+    inputButton = formAdd.lastElementChild,
+    deleteBtn = promoItem.firstElementChild,
+    favoriteFilm = document.querySelector('#check');
+
+
 
 
 promoAdv.forEach(item => {
@@ -42,13 +49,66 @@ promoItem.innerHTML = "";
 
 movieDB.movies.sort();
 
-movieDB.movies.forEach ((item, i) => {
+movieDB.movies.forEach((item, i) => {
     promoItem.innerHTML += `
     <li class="promo__interactive-item">${i + 1}. ${item}
         <div class="delete"></div>
     </li>`;
 });
 
+inputButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    movieDB.movies[movieDB.movies.length] = addingInput.value;
+    if (favoriteFilm.checked) {
+        alert('new fav film');
+    }
+    promoItem.innerHTML = "";
+    movieDB.movies.sort();
+    movieDB.movies.forEach((item, i) => {
+        if (item.length > 21) {
+        promoItem.innerHTML += `
+        <li class="promo__interactive-item">${i + 1}. ${item.substring(1, 22)}...
+            <div class="delete"></div>
+        </li>`;
+        } else{
+            promoItem.innerHTML += `
+        <li class="promo__interactive-item">${i + 1}. ${item}
+            <div class="delete"></div>
+        </li>`;
+        }
+    });
+});
+console.log(deleteBtn);
+
+
+
+
+// deleteBtn[0].onclick = function() {
+//     console.log('sdada');
+// };
+
+// const deleteCommand = (e) => {
+//     console.log(e.currentTarget);
+//     console.log(e.type);
+// };
+
+// deleteBtn[1].addEventListener('click', (event) => {
+//     alert('asdasd');
+// });
+// deleteBtn.forEach(delBtn => {
+//     delBtn.addEventListener('click',(e) => {
+//         console.log(e.currentTarget);
+//         console.log(e.type);
+//     });
+// });
+// console.log(promoItem);
+
+// for (let elementsItems in promoItem) {
+//     lastElementChild.addEventListener('click',(e) => {
+//                 console.log(e.currentTarget);
+//                 console.log(e.type);
+//             });
+// }
 
 // promoGenre[0].remove();
 // const dramma = document.createElement('div');
